@@ -15,13 +15,11 @@ import 'package:mindful/ui/common/styled_text.dart';
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({
     super.key,
-    required this.imgArtPath,
     required this.title,
     required this.description,
     this.bottomPadding = 148,
   });
 
-  final String imgArtPath;
   final String title;
   final String description;
   final double bottomPadding;
@@ -31,20 +29,8 @@ class OnboardingPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: bottomPadding),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          0.vBox,
-
-          /// Illustration
-          AspectRatio(
-            aspectRatio: 1,
-            child: Image.asset(
-              imgArtPath,
-              fit: BoxFit.contain,
-            ),
-          ),
-
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -36,7 +36,6 @@ class PermissionsPage extends StatelessWidget {
           OnboardingPage(
             bottomPadding: 0,
             title: context.locale.onboarding_page_permissions_title,
-            imgArtPath: "assets/illustrations/onboarding_4.png",
             description: context.locale.onboarding_page_permissions_info,
           ),
 

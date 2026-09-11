@@ -53,7 +53,7 @@ class AppLocalizationsEn extends AppLocalizations {
       '3. Click and turn on the switch like below.';
 
   @override
-  String get permission_notification_title => 'Send Notifications';
+  String get permission_notification_title => 'Send Notifications (Optional)';
 
   @override
   String get permission_alarms_title => 'Alarms & Reminders';
@@ -482,7 +482,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboarding_page_permissions_info =>
-      'Mindful requires following essential permissions to track and manage your screen time, helping reduce distractions and improve focus.';
+      'Grant the required permissions below to manage screen time effectively. Notifications are optional and can be enabled later.';
 
   @override
   String get dashboard_tab_title => 'Dashboard';

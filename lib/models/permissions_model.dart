@@ -39,6 +39,12 @@ class PermissionsModel {
   /// Indicates whether the Notification Access permission is granted.
   final bool haveNotificationAccessPermission;
 
+  /// Indicates whether app launch/blocking-critical permissions are granted.
+  bool get haveAllRequiredPermissions =>
+      haveUsageAccessPermission &&
+      haveDisplayOverlayPermission &&
+      haveAlarmsPermission;
+
   const PermissionsModel({
     this.haveNotificationPermission = true,
     this.haveUsageAccessPermission = true,

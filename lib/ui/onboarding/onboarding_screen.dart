@@ -45,17 +45,14 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
   late final List<Widget> _pages = [
     OnboardingPage(
       title: context.locale.onboarding_page_one_title,
-      imgArtPath: "assets/illustrations/onboarding_1.png",
       description: context.locale.onboarding_page_one_info,
     ),
     OnboardingPage(
       title: context.locale.onboarding_page_two_title,
-      imgArtPath: "assets/illustrations/onboarding_2.png",
       description: context.locale.onboarding_page_two_info,
     ),
     OnboardingPage(
       title: context.locale.onboarding_page_three_title,
-      imgArtPath: "assets/illustrations/onboarding_3.png",
       description: context.locale.onboarding_page_three_info,
     ),
     const PermissionsPage(),
@@ -65,24 +62,21 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
   void initState() {
     super.initState();
 
-    /// Listen to permission changes an finish onboarding when
-    /// user have granted all essential permissions
+    /// Listen to permission changes and finish onboarding when
+    /// user has granted all required permissions.
     _subscription = ref.listenManual<PermissionsModel>(
       permissionProvider,
       (_, perms) {
-        final haveAllEssentialPermissions = perms.haveUsageAccessPermission &&
-            perms.haveDisplayOverlayPermission &&
-            perms.haveAlarmsPermission &&
-            perms.haveNotificationPermission;
+        final haveAllRequiredPermissions = perms.haveAllRequiredPermissions;
 
-        if (!haveAllEssentialPermissions) return;
+        if (!haveAllRequiredPermissions) return;
         _finishOnboarding();
         _subscription?.close();
       },
     );
 
     /// Go to permissions page if already done onboarding
-    /// but user removed some essential permissions
+    /// but user removed some required permissions.
     if (widget.isOnboardingDone) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _skipToLastPage();
@@ -125,10 +119,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
   Widget build(BuildContext context) {
     final isLastPage = _currentPage == _pages.length - 1;
     final perms = ref.watch(permissionProvider);
-    final haveAllEssentialPermissions = perms.haveUsageAccessPermission &&
-        perms.haveDisplayOverlayPermission &&
-        perms.haveAlarmsPermission &&
-        perms.haveNotificationPermission;
+    final haveAllRequiredPermissions = perms.haveAllRequiredPermissions;
 
     return PopScope(
       onPopInvokedWithResult: (didPop, _) => SystemNavigator.pop(),
@@ -206,7 +197,7 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
 
                               /// Finish setup
                               ? FilledButton(
-                                  onPressed: haveAllEssentialPermissions
+                                 onPressed: haveAllRequiredPermissions
                                       ? () => _finishOnboarding()
                                       : null,
                                   child: Text(
