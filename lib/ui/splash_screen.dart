@@ -37,7 +37,7 @@ class SplashScreen extends ConsumerStatefulWidget {
 }
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
-  bool _haveAllEssentialPermissions = false;
+  bool _haveAllRequiredPermissions = false;
   bool _isOnboardingDone = false;
   bool _isAccessProtected = false;
   bool _isAppUpdated = false;
@@ -60,10 +60,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     _isAccessProtected =
         (await ref.read(parentalControlsProvider.notifier).init())
             .protectedAccess;
-    _haveAllEssentialPermissions = perms.haveUsageAccessPermission &&
-        perms.haveDisplayOverlayPermission &&
-        perms.haveAlarmsPermission &&
-        perms.haveNotificationPermission;
+    _haveAllRequiredPermissions = perms.haveAllRequiredPermissions;
 
     if (mounted) setState(() {});
     _isAccessProtected ? _authenticate() : _goToNextScreen(true);
@@ -73,7 +70,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     if (shouldDelay) await Future.delayed(250.ms);
     if (!mounted) return;
 
-    if (_haveAllEssentialPermissions && _isOnboardingDone) {
+    if (_haveAllRequiredPermissions && _isOnboardingDone) {
       NavigationService.instance.init(showChangeLogsToo: _isAppUpdated);
     } else {
       Navigator.of(context).pushReplacementNamed(
