@@ -45,17 +45,14 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> {
   late final List<Widget> _pages = [
     OnboardingPage(
       title: context.locale.onboarding_page_one_title,
-      imgArtPath: "assets/illustrations/onboarding_1.png",
       description: context.locale.onboarding_page_one_info,
     ),
     OnboardingPage(
       title: context.locale.onboarding_page_two_title,
-      imgArtPath: "assets/illustrations/onboarding_2.png",
       description: context.locale.onboarding_page_two_info,
     ),
     OnboardingPage(
       title: context.locale.onboarding_page_three_title,
-      imgArtPath: "assets/illustrations/onboarding_3.png",
       description: context.locale.onboarding_page_three_info,
     ),
     const PermissionsPage(),
